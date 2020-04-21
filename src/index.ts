@@ -51,7 +51,7 @@ interface IRepo {
   committedTimeResponseMap.forEach(committedTimeResponse => {
     committedTimeResponse?.data?.repository?.ref?.target?.history?.edges.forEach(edge => {
       const committedDate = edge?.node?.committedDate;
-      const timeString = new Date(committedDate).toLocaleTimeString([ process.env.LOCALE, 'et-EE' ], { hour12: false });
+      const timeString = new Date(committedDate).toLocaleTimeString([ process.env.LOCALE, 'en-US' ], { hour12: false });
       const hour = +(timeString.split(':')[0]);
 
       /**
@@ -81,6 +81,7 @@ interface IRepo {
     const percent = cur.commits / sum * 100;
     const line = [
       `${cur.label}`.padEnd(9),
+      `${cur.commits.toString().padStart(5)} commits`.padEnd(14),
       generateBarChart(percent, 21),
       String(percent.toFixed(1)).padStart(5) + '%',
     ];
